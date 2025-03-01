@@ -18,7 +18,7 @@ export default function Card({ product }: Props) {
         {/* header */}
         <div className="mb-2">
           <div className="flex justify-around">
-            <h2 className="text-xl font-semibold text-gray-800 mb-1 flex flex-1">
+            <h2 className="text-xl font-semibold text-gray-800 mb-1 flex flex-1 truncate">
               {product.title}
             </h2>
             <span className="text-lg font-bold ml-auto">${product.price}</span>
