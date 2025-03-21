@@ -1,6 +1,7 @@
 import { XIcon } from "./svg_icons/SVGIcons";
 import { ProductField } from "../types/fields";
 import { useState } from "react";
+import { ButtonMd } from "./ui/Buttons";
 interface DrawerProps {
   onClose: () => void;
   isOpen: boolean;
@@ -78,12 +79,7 @@ export default function Drawer({ isOpen, onClose, fields }: DrawerProps) {
           </div>
         ))}
         <div className="flex">
-          <button
-            type="submit"
-            className="text-white bg-black hover:bg-[#000708]/90 transform transition-all duration-200 hover:scale-105 cursor-pointer focus:ring-4 focus:outline-none focus:ring-[#050708]/50 font-medium rounded-sm text-sm px-5 py-2.5 text-center flex flex-1 justify-center items-center  me-2 mb-2"
-          >
-            Submit
-          </button>
+          <ButtonMd type="submit">Submit</ButtonMd>
         </div>
       </form>
     </div>

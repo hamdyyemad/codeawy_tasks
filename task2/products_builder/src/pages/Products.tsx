@@ -1,10 +1,11 @@
-import Card from "../components/Card";
-import Drawer from "../components/Drawer";
+import { Product } from "../types/product";
 import { useState } from "react";
 import { useFetch } from "../hooks/useFetch";
-
-import { Product } from "../types/product";
 import { productFields } from "../constants.ts";
+
+import { ButtonSM } from "../components/ui/Buttons";
+import Card from "../components/Card";
+import Drawer from "../components/Drawer";
 
 export default function Products() {
   const { data, isLoading, error } = useFetch<{ products: Product[] }>(
@@ -46,12 +47,7 @@ export default function Products() {
           <h1 className="text-3xl font-bold tracking-tight text-gray-300/90 flex-1">
             Our Products
           </h1>
-          <button
-            onClick={() => setIsDrawerOpen(true)}
-            className="text-white bg-black hover:bg-[#000708]/90 transform transition-all duration-200 hover:scale-105 cursor-pointer focus:ring-4 focus:outline-none focus:ring-[#050708]/50 font-medium rounded-sm text-sm px-5 py-2.5 text-center justify-center items-center  me-2 mb-2"
-          >
-            Create
-          </button>
+          <ButtonSM onClick={() => setIsDrawerOpen(true)}>Create</ButtonSM>
         </div>
 
         <div className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-y-10 place-items-center">
