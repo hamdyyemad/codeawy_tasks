@@ -1,5 +1,5 @@
 import Stars from "./Stars";
-import { ButtonMd } from "./ui/Buttons";
+import Button from "./ui/Buttons";
 
 import { EditSVG, DeleteSVG } from "./svg_icons/SVGIcons";
 
@@ -64,15 +64,23 @@ export default function Card({ product }: Props) {
         </div>
         {/* Button */}
         <div className="flex space-x-2">
-          <ButtonMd onClick={() => console.log("clicked on Edit")}>
+          <Button
+            onClick={() => console.log("clicked on Edit")}
+            extraClasses="flex flex-1 justify-center items-center"
+            width="w-full"
+          >
             <EditSVG />
             Edit
-          </ButtonMd>
+          </Button>
 
-          <ButtonMd onClick={() => console.log("clicked on Delete")}>
+          <Button
+            onClick={() => console.log("clicked on Delete")}
+            extraClasses="flex flex-1 justify-center items-center"
+            width="w-full"
+          >
             <DeleteSVG />
             Delete
-          </ButtonMd>
+          </Button>
         </div>
       </div>
     </div>

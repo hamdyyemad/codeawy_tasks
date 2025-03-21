@@ -1,7 +1,7 @@
 import { XIcon } from "./svg_icons/SVGIcons";
 import { ProductField } from "../types/fields";
 import { useState } from "react";
-import { ButtonMd } from "./ui/Buttons";
+import Button from "./ui/Buttons";
 interface DrawerProps {
   onClose: () => void;
   isOpen: boolean;
@@ -79,7 +79,13 @@ export default function Drawer({ isOpen, onClose, fields }: DrawerProps) {
           </div>
         ))}
         <div className="flex">
-          <ButtonMd type="submit">Submit</ButtonMd>
+          <Button
+            type="submit"
+            extraClasses="flex flex-1 justify-center items-center"
+            width="w-fit"
+          >
+            Submit
+          </Button>
         </div>
       </form>
     </div>

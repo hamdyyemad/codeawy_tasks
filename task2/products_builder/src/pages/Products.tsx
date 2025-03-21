@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useFetch } from "../hooks/useFetch";
 import { productFields } from "../constants.ts";
 
-import { ButtonSM } from "../components/ui/Buttons";
+import Button from "../components/ui/Buttons";
 import Card from "../components/Card";
 import Drawer from "../components/Drawer";
 
@@ -47,7 +47,13 @@ export default function Products() {
           <h1 className="text-3xl font-bold tracking-tight text-gray-300/90 flex-1">
             Our Products
           </h1>
-          <ButtonSM onClick={() => setIsDrawerOpen(true)}>Create</ButtonSM>
+          <Button
+            onClick={() => setIsDrawerOpen(true)}
+            extraClasses="me-2"
+            width="w-fit"
+          >
+            Create
+          </Button>
         </div>
 
         <div className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-y-10 place-items-center">
