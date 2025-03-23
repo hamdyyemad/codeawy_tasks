@@ -1,14 +1,32 @@
-import { XIcon } from "./svg_icons/SVGIcons";
-import { ProductField } from "../types/fields";
-import { useState } from "react";
 import Button from "./ui/Buttons";
-interface DrawerProps {
+import TextArea from "./ui/TextAreas";
+import Input from "./ui/Inputs";
+
+import { useState } from "react";
+import { XIcon } from "./ui/svg_icons/SVGIcons";
+import { Field } from "../types/fields";
+
+interface DrawerProps<T extends object> {
   onClose: () => void;
   isOpen: boolean;
-  fields: ProductField[];
+  fields: Field<T>[];
+  title?: string;
 }
-export default function Drawer({ isOpen, onClose, fields }: DrawerProps) {
-  const [formData, setFormData] = useState({});
+
+export default function Drawer<T extends object>({
+  isOpen,
+  onClose,
+  fields,
+  title,
+}: DrawerProps<T>) {
+  // Initialize formData state with keys from fields
+  const [formData, setFormData] = useState<T>(() => {
+    const initialData = {} as T;
+    fields.forEach((field) => {
+      initialData[field.name] = "" as T[keyof T]; // Initialize with empty strings
+    });
+    return initialData;
+  });
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -18,6 +36,7 @@ export default function Drawer({ isOpen, onClose, fields }: DrawerProps) {
       ...prev,
       [name]: value,
     }));
+    console.log(formData);
   }
 
   function handleSubmit(e: React.FormEvent) {
@@ -37,8 +56,9 @@ export default function Drawer({ isOpen, onClose, fields }: DrawerProps) {
         id="drawer-label"
         className="inline-flex items-center mb-6 text-base font-semibold text-gray-300 uppercase"
       >
-        New Product
+        {title}
       </h5>
+
       <button
         type="button"
         onClick={onClose}
@@ -46,34 +66,35 @@ export default function Drawer({ isOpen, onClose, fields }: DrawerProps) {
       >
         <XIcon />
       </button>
+
       <form onSubmit={handleSubmit} className="mb-6">
         {fields.map((field, i) => (
-          <div className="mb-6" key={`${field.name} ${i}`}>
+          <div className="mb-6" key={`${field.name as string} ${i}`}>
             <label
-              htmlFor={field.name}
+              htmlFor={field.name as string}
               className="block mb-2 text-sm font-medium text-gray-300"
             >
               {field.label}
             </label>
             {field.type === "textarea" ? (
-              <textarea
-                id={field.name}
-                name={field.name}
-                className="block p-3.5 w-full text-sm text-gray-100 bg-black/20 rounded-lg border border-gray-900/40"
+              <TextArea
+                id={field.name as string}
+                name={field.name as string}
                 placeholder={field.placeholder}
                 required={field.required}
                 onChange={handleChange}
+                value={formData[field.name] as string}
               />
             ) : (
-              <input
+              <Input
                 type={field.type}
-                id={field.name}
-                name={field.name}
-                className="bg-black/20 border text-gray-100 text-sm rounded-lg w-full p-2.5 border-gray-900/40"
+                id={field.name as string}
+                name={field.name as string}
                 placeholder={field.placeholder}
                 required={field?.required ?? false}
                 min={field?.min}
                 onChange={handleChange}
+                value={formData[field.name] as string}
               />
             )}
           </div>

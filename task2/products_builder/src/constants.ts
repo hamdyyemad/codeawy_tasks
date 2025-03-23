@@ -1,5 +1,13 @@
-import { ProductField } from "./types/fields";
-export const productFields: ProductField[] = [
+import { Field } from "./types/fields";
+
+interface ProductFormData {
+  title: string;
+  description: string;
+  category: string;
+  price: number;
+}
+
+export const productFields: Field<ProductFormData>[] = [
   {
     label: "Title",
     type: "text",

@@ -1,6 +1,7 @@
-import { Product } from "../types/product";
 import { useState } from "react";
 import { useFetch } from "../hooks/useFetch";
+
+import { Product } from "../types/product";
 import { productFields } from "../constants.ts";
 
 import Button from "../components/ui/Buttons";
@@ -12,6 +13,7 @@ export default function Products() {
     "https://dummyjson.com/products?limit=10"
   );
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
   if (isLoading) {
     return (
       <div className="grid h-screen place-items-center text-xl font-semibold text-gray-300/90">
@@ -34,6 +36,7 @@ export default function Products() {
         fields={productFields}
         isOpen={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
+        title="NEW PRODUCT"
       />
 
       <section className="p-5">

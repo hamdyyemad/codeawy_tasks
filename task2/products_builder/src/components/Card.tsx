@@ -1,13 +1,14 @@
-import Stars from "./Stars";
+import Stars from "./ui/Stars";
 import Button from "./ui/Buttons";
 
-import { EditSVG, DeleteSVG } from "./svg_icons/SVGIcons";
+import { EditSVG, DeleteSVG } from "./ui/svg_icons/SVGIcons";
 
 import { Product } from "../types/product";
 
 interface Props {
   product: Product;
 }
+
 export default function Card({ product }: Props) {
   return (
     <div className=" bg-black/20 rounded-lg shadow-lg overflow-hidden max-w-sm w-full5 transform transition-all duration-200 hover:scale-105">

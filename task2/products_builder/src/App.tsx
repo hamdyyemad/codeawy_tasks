@@ -1,4 +1,4 @@
-import PolygonWrapper from "./components/PolygonWrapper";
+import PolygonWrapper from "./components/ui/PolygonWrapper";
 import Products from "./pages/Products";
 
 export default function App() {
