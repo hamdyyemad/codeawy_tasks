@@ -38,7 +38,10 @@ export default function Products() {
         onClose={() => setIsDrawerOpen(false)}
         title="NEW PRODUCT"
       >
-        <ProductsForm fields={productFields} />
+        <ProductsForm
+          fields={productFields}
+          closeDrawer={() => setIsDrawerOpen(false)}
+        />
       </Drawer>
 
       <section className="p-5">

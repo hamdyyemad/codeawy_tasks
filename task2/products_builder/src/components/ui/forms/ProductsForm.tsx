@@ -7,10 +7,12 @@ import { Field } from "../../../types/fields";
 
 interface ProductsFormProps<T extends object> {
   fields: Field<T>[];
+  closeDrawer?: () => void;
 }
 
 export default function ProductsForm<T extends object>({
   fields,
+  closeDrawer,
 }: ProductsFormProps<T>) {
   const createInitialState = (): T => {
     const initialData = {} as T;
@@ -36,11 +38,14 @@ export default function ProductsForm<T extends object>({
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     console.log(formData);
+    closeDrawer?.();
   }
   function onCancel() {
     // console.log();
     setFormData(createInitialState);
+    closeDrawer?.();
   }
+
   return (
     <form onSubmit={handleSubmit} className="mb-6">
       {fields.map((field, i) => (
