@@ -4,6 +4,7 @@ import Input from "../inputs/Input";
 
 import { useState } from "react";
 import { Field, NumberField } from "../../../types/fields";
+import ErrorMessage from "../../ErrorMessage";
 
 interface ProductsFormProps<T extends object> {
   fields: Field<T>[];
@@ -164,9 +165,7 @@ export default function ProductsForm<T extends object>({
               hasError={!!errors[field.name]}
             />
           )}
-          {errors[field.name] && (
-            <p className="mt-1 text-sm text-red-500">{errors[field.name]}</p>
-          )}
+          <ErrorMessage msg={errors[field.name]} />
         </div>
       ))}
       <div className="flex flex-col items-center">

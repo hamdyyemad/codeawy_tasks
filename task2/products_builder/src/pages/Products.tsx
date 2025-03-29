@@ -8,6 +8,8 @@ import Button from "../components/ui/buttons/Button.tsx";
 import Card from "../components/ui/cards/ProductCard.tsx";
 import Drawer from "../components/ui/drawers/Drawer.tsx";
 import ProductsForm from "../components/ui/forms/ProductsForm.tsx";
+import SpinnerLoader from "../components/ui/loaders/SpinnerLoader.tsx";
+import ErrorPage from "../components/ErrorPage.tsx";
 
 export default function Products() {
   const { data, isLoading, error } = useFetch<{ products: Product[] }>(
@@ -18,7 +20,7 @@ export default function Products() {
   if (isLoading) {
     return (
       <div className="grid h-screen place-items-center text-xl font-semibold text-gray-300/90">
-        Loading...
+        <SpinnerLoader />
       </div>
     );
   }
@@ -26,7 +28,7 @@ export default function Products() {
   if (error) {
     return (
       <div className="grid h-screen place-items-center text-xl font-semibold text-gray-300/90">
-        {error}
+        <ErrorPage msg={error.message} />
       </div>
     );
   }

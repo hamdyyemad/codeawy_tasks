@@ -15,7 +15,9 @@ export const productFields: Field<ProductFormData>[] = [
     placeholder: "Enter title",
     required: true,
     validate: (value: string) =>
-      value.length < 3 ? "Title must be at least 3 characters" : undefined,
+      value.trim().length < 3
+        ? "Title must be at least 3 characters"
+        : undefined,
   },
   {
     label: "Description",
@@ -24,7 +26,7 @@ export const productFields: Field<ProductFormData>[] = [
     placeholder: "Enter description",
     required: true,
     validate: (value) =>
-      value.length < 10
+      value.trim().length < 10
         ? "Description must be at least 10 characters"
         : undefined,
   },
@@ -35,7 +37,9 @@ export const productFields: Field<ProductFormData>[] = [
     placeholder: "Enter category",
     required: true,
     validate: (value: string) =>
-      value.length < 10 ? "Category must be at least 10 characters" : undefined,
+      value.trim().length < 10
+        ? "Category must be at least 10 characters"
+        : undefined,
   },
   {
     label: "Price",

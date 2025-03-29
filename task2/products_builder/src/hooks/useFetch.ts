@@ -19,8 +19,8 @@ import { useState, useEffect } from "react";
 export const useFetch = <T>(url: string) => {
   const [data, setData] = useState<T | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<null | string>(null);
-
+  // const [error, setError] = useState<null | string>(null);
+  const [error, setError] = useState<Error | null>(null);
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -34,9 +34,13 @@ export const useFetch = <T>(url: string) => {
         console.log(json);
       } catch (error) {
         console.error(error);
-        setError(
-          error instanceof Error ? error.message : "An unknown error occurred"
-        );
+        // setError(
+        //   error instanceof Error ? error.message : "An unknown error occurred"
+        // );
+        if (error instanceof Error) {
+          setError(error);
+        }
+
         setIsLoading(false);
       }
     };
