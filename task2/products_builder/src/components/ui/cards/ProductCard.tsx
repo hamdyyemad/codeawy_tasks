@@ -1,15 +1,13 @@
 import Stars from "../Stars";
-import Button from "../buttons/Button";
-
-import { EditSVG, DeleteSVG } from "../svg_icons/OperationsIcon";
 
 import { Product } from "../../../types/product";
 
 interface Props {
   product: Product;
+  children: React.ReactNode;
 }
 
-export default function Card({ product }: Props) {
+export default function Card({ product, children }: Props) {
   return (
     <div className=" bg-black/20 rounded-lg shadow-lg overflow-hidden max-w-sm w-full5 transform transition-all duration-200 hover:scale-105">
       <div className="relative">
@@ -64,25 +62,7 @@ export default function Card({ product }: Props) {
           </div>
         </div>
         {/* Button */}
-        <div className="flex space-x-2">
-          <Button
-            onClick={() => console.log("clicked on Edit")}
-            extraClasses="flex flex-1 justify-center items-center"
-            width="w-full"
-          >
-            <EditSVG />
-            Edit
-          </Button>
-
-          <Button
-            onClick={() => console.log("clicked on Delete")}
-            extraClasses="flex flex-1 justify-center items-center"
-            width="w-full"
-          >
-            <DeleteSVG />
-            Delete
-          </Button>
-        </div>
+        <div className="flex space-x-2">{children}</div>
       </div>
     </div>
   );

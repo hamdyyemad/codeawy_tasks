@@ -2,23 +2,29 @@ import Button from "../buttons/Button";
 import TextArea from "../inputs/TextArea";
 import Input from "../inputs/Input";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Field, NumberField } from "../../../types/fields";
 import ErrorMessage from "../../ErrorMessage";
 
 interface ProductsFormProps<T extends object> {
   fields: Field<T>[];
   closeDrawer?: () => void;
+  initialValues?: Partial<T>;
+  isEditing?: boolean;
 }
 
 export default function ProductsForm<T extends object>({
   fields,
   closeDrawer,
+  initialValues,
+  isEditing = false,
 }: ProductsFormProps<T>) {
   const createInitialState = (): T => {
     const initialData = {} as T;
     fields.forEach((field) => {
-      initialData[field.name] = "" as T[keyof T];
+      // Use initial value if provided, otherwise use empty string or field.defaultValue if available
+      const initialValue = initialValues?.[field.name] ?? "";
+      initialData[field.name] = initialValue as T[keyof T];
     });
     return initialData;
   };
@@ -26,7 +32,15 @@ export default function ProductsForm<T extends object>({
   const [formData, setFormData] = useState<T>(createInitialState);
   const [errors, setErrors] = useState<Partial<Record<keyof T, string>>>({});
 
-  // In your validateField function
+  // Reset form when initialValues change (for edit mode)
+  useEffect(() => {
+    setFormData(createInitialState());
+    if (isEditing && initialValues) {
+      setErrors({});
+    }
+  }, [initialValues, isEditing]);
+
+  // Rest of your existing code remains the same...
   const validateField = (
     field: Field<T>,
     value: T[keyof T]
@@ -35,7 +49,6 @@ export default function ProductsForm<T extends object>({
       return `${field.label} is required`;
     }
 
-    // Type-safe validation based on field type
     if (field.type === "number") {
       const numValue = value as number;
       if (field.min !== undefined && numValue < field.min) {
@@ -65,7 +78,6 @@ export default function ProductsForm<T extends object>({
     let isValid = true;
 
     fields.forEach((field) => {
-      // Pass the entire field object to validateField
       const error = validateField(field, formData[field.name]);
       if (error) {
         newErrors[field.name] = error;
@@ -86,7 +98,6 @@ export default function ProductsForm<T extends object>({
     const field = fields.find((f) => f.name === fieldName);
     if (!field) return;
 
-    // Type-safe value conversion
     let typedValue: T[keyof T];
     if (field.type === "number") {
       const numValue = Number(value);
@@ -95,13 +106,11 @@ export default function ProductsForm<T extends object>({
       typedValue = value as T[keyof T];
     }
 
-    // Update form data
     setFormData((prev) => ({
       ...prev,
       [fieldName]: typedValue,
     }));
 
-    // Validate with the new value
     const error = validateField(field, typedValue);
     setErrors((prev) => ({
       ...prev,
@@ -110,8 +119,7 @@ export default function ProductsForm<T extends object>({
   }
 
   function onCancel() {
-    // console.log();
-    setFormData(createInitialState);
+    setFormData(createInitialState());
     setErrors({});
     closeDrawer?.();
   }
@@ -121,6 +129,8 @@ export default function ProductsForm<T extends object>({
 
     if (validateForm()) {
       console.log("Form is valid:", formData);
+      // You might want to handle submission differently for edit vs create
+      console.log(isEditing ? "Updating product" : "Creating new product");
       // closeDrawer?.();
     } else {
       console.log("Form has errors");
@@ -174,7 +184,7 @@ export default function ProductsForm<T extends object>({
           extraClasses="flex flex-1 justify-center items-center"
           width="w-full"
         >
-          Submit
+          {isEditing ? "Update" : "Submit"}
         </Button>
         <Button
           type="button"
