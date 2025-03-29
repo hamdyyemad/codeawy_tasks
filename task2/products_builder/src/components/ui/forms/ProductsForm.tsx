@@ -3,7 +3,7 @@ import TextArea from "../inputs/TextArea";
 import Input from "../inputs/Input";
 
 import { useState } from "react";
-import { Field } from "../../../types/fields";
+import { Field, NumberField } from "../../../types/fields";
 
 interface ProductsFormProps<T extends object> {
   fields: Field<T>[];
@@ -23,27 +23,107 @@ export default function ProductsForm<T extends object>({
   };
 
   const [formData, setFormData] = useState<T>(createInitialState);
+  const [errors, setErrors] = useState<Partial<Record<keyof T, string>>>({});
+
+  // In your validateField function
+  const validateField = (
+    field: Field<T>,
+    value: T[keyof T]
+  ): string | undefined => {
+    if (field.required && !value) {
+      return `${field.label} is required`;
+    }
+
+    // Type-safe validation based on field type
+    if (field.type === "number") {
+      const numValue = value as number;
+      if (field.min !== undefined && numValue < field.min) {
+        return `${field.label} must be at least ${field.min}`;
+      }
+      if (field.max !== undefined && numValue > field.max) {
+        return `${field.label} must be at most ${field.max}`;
+      }
+      if (field.validate) {
+        return field.validate(numValue);
+      }
+    } else {
+      const strValue = value as string;
+      if (field.pattern && !field.pattern.test(strValue)) {
+        return `Invalid ${field.label.toLowerCase()} format`;
+      }
+      if (field.validate) {
+        return field.validate(strValue);
+      }
+    }
+
+    return undefined;
+  };
+
+  const validateForm = (): boolean => {
+    const newErrors: Partial<Record<keyof T, string>> = {};
+    let isValid = true;
+
+    fields.forEach((field) => {
+      // Pass the entire field object to validateField
+      const error = validateField(field, formData[field.name]);
+      if (error) {
+        newErrors[field.name] = error;
+        isValid = false;
+      }
+    });
+
+    setErrors(newErrors);
+    return isValid;
+  };
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) {
     const { name, value } = e.target;
+    const fieldName = name as keyof T;
+
+    const field = fields.find((f) => f.name === fieldName);
+    if (!field) return;
+
+    // Type-safe value conversion
+    let typedValue: T[keyof T];
+    if (field.type === "number") {
+      const numValue = Number(value);
+      typedValue = (isNaN(numValue) ? value : numValue) as T[keyof T];
+    } else {
+      typedValue = value as T[keyof T];
+    }
+
+    // Update form data
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [fieldName]: typedValue,
     }));
-    console.log(formData);
+
+    // Validate with the new value
+    const error = validateField(field, typedValue);
+    setErrors((prev) => ({
+      ...prev,
+      [fieldName]: error,
+    }));
+  }
+
+  function onCancel() {
+    // console.log();
+    setFormData(createInitialState);
+    setErrors({});
+    closeDrawer?.();
   }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    console.log(formData);
-    closeDrawer?.();
-  }
-  function onCancel() {
-    // console.log();
-    setFormData(createInitialState);
-    closeDrawer?.();
+
+    if (validateForm()) {
+      console.log("Form is valid:", formData);
+      // closeDrawer?.();
+    } else {
+      console.log("Form has errors");
+    }
   }
 
   return (
@@ -55,6 +135,7 @@ export default function ProductsForm<T extends object>({
             className="block mb-2 text-sm font-medium text-gray-300"
           >
             {field.label}
+            {field.required && <span className="text-red-500">*</span>}
           </label>
           {field.type === "textarea" ? (
             <TextArea
@@ -64,6 +145,7 @@ export default function ProductsForm<T extends object>({
               required={field.required}
               onChange={handleChange}
               value={formData[field.name] as string}
+              hasError={!!errors[field.name]}
             />
           ) : (
             <Input
@@ -72,10 +154,18 @@ export default function ProductsForm<T extends object>({
               name={field.name as string}
               placeholder={field.placeholder}
               required={field?.required ?? false}
-              min={field?.min}
+              min={
+                field.type === "number"
+                  ? (field as NumberField<T, keyof T>).min
+                  : undefined
+              }
               onChange={handleChange}
               value={formData[field.name] as string}
+              hasError={!!errors[field.name]}
             />
+          )}
+          {errors[field.name] && (
+            <p className="mt-1 text-sm text-red-500">{errors[field.name]}</p>
           )}
         </div>
       ))}

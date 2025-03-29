@@ -14,12 +14,19 @@ export const productFields: Field<ProductFormData>[] = [
     name: "title",
     placeholder: "Enter title",
     required: true,
+    validate: (value: string) =>
+      value.length < 3 ? "Title must be at least 3 characters" : undefined,
   },
   {
     label: "Description",
     type: "textarea",
     name: "description",
     placeholder: "Enter description",
+    required: true,
+    validate: (value) =>
+      value.length < 10
+        ? "Description must be at least 10 characters"
+        : undefined,
   },
   {
     label: "Category",
@@ -27,6 +34,8 @@ export const productFields: Field<ProductFormData>[] = [
     name: "category",
     placeholder: "Enter category",
     required: true,
+    validate: (value: string) =>
+      value.length < 10 ? "Category must be at least 10 characters" : undefined,
   },
   {
     label: "Price",
@@ -35,5 +44,8 @@ export const productFields: Field<ProductFormData>[] = [
     placeholder: "Enter price",
     required: true,
     min: 0,
+    max: 100000,
+    validate: (value: number) =>
+      value > 100000 ? "Price seems too high" : undefined,
   },
 ];
