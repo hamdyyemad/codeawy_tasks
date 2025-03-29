@@ -4,9 +4,10 @@ import { useFetch } from "../hooks/useFetch";
 import { Product } from "../types/product";
 import { productFields } from "../constants.ts";
 
-import Button from "../components/ui/Buttons";
-import Card from "../components/Card";
-import Drawer from "../components/Drawer";
+import Button from "../components/ui/buttons/Button.tsx";
+import Card from "../components/ui/cards/ProductCard.tsx";
+import Drawer from "../components/ui/drawers/Drawer.tsx";
+import ProductsForm from "../components/ui/forms/ProductsForm.tsx";
 
 export default function Products() {
   const { data, isLoading, error } = useFetch<{ products: Product[] }>(
@@ -33,11 +34,12 @@ export default function Products() {
   return (
     <>
       <Drawer
-        fields={productFields}
         isOpen={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
         title="NEW PRODUCT"
-      />
+      >
+        <ProductsForm fields={productFields} />
+      </Drawer>
 
       <section className="p-5">
         {isDrawerOpen && (

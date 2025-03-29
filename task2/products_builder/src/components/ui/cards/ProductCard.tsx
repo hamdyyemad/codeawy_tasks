@@ -1,9 +1,9 @@
-import Stars from "./ui/Stars";
-import Button from "./ui/Buttons";
+import Stars from "../Stars";
+import Button from "../buttons/Button";
 
-import { EditSVG, DeleteSVG } from "./ui/svg_icons/SVGIcons";
+import { EditSVG, DeleteSVG } from "../svg_icons/OperationsIcon";
 
-import { Product } from "../types/product";
+import { Product } from "../../../types/product";
 
 interface Props {
   product: Product;

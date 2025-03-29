@@ -1,4 +1,4 @@
-import { StarEmpty, StarFull, StarHalf } from "./svg_icons/SVGIcons";
+import { StarEmpty, StarFull, StarHalf } from "./svg_icons/Stars";
 
 interface Props {
   rating: number;
