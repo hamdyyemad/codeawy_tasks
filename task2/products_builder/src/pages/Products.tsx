@@ -9,7 +9,7 @@ import { EditSVG, DeleteSVG } from "../components/ui/svg_icons/OperationsIcon";
 import Button from "../components/ui/buttons/Button.tsx";
 import Card from "../components/ui/cards/ProductCard.tsx";
 import Drawer from "../components/ui/drawers/Drawer.tsx";
-import ProductsForm from "../components/ui/forms/ProductsForm.tsx";
+import Form from "../components/ui/forms/Form.tsx";
 import SpinnerLoader from "../components/ui/loaders/SpinnerLoader.tsx";
 import ErrorPage from "../components/ErrorPage.tsx";
 import Modal from "../components/ui/popups/Modal.tsx";
@@ -69,7 +69,7 @@ export default function Products() {
         }}
         title={isEditing ? "Edit Product" : "New Product"}
       >
-        <ProductsForm
+        <Form
           fields={productFields}
           closeDrawer={() => {
             setIsDrawerOpen(false);

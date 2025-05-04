@@ -1,24 +1,24 @@
 import Button from "../buttons/Button";
-import TextArea from "../inputs/TextArea";
+import ErrorMessage from "../../ErrorMessage";
 import Input from "../inputs/Input";
+import TextArea from "../inputs/TextArea";
 
 import { useState, useEffect } from "react";
 import { Field, NumberField } from "../../../types/fields";
-import ErrorMessage from "../../ErrorMessage";
 
-interface ProductsFormProps<T extends object> {
+interface FormProps<T extends object> {
   fields: Field<T>[];
   closeDrawer?: () => void;
   initialValues?: Partial<T>;
   isEditing?: boolean;
 }
 
-export default function ProductsForm<T extends object>({
+export default function Form<T extends object>({
   fields,
   closeDrawer,
   initialValues,
   isEditing = false,
-}: ProductsFormProps<T>) {
+}: FormProps<T>) {
   const createInitialState = (): T => {
     const initialData = {} as T;
     fields.forEach((field) => {

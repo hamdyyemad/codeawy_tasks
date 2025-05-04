@@ -19,7 +19,7 @@ export default function Modal({
       {/* Modal container */}
       <div className="fixed inset-0 flex items-center justify-center z-50">
         {/* Modal content */}
-        <div className="relative rounded-lg shadow bg-gray-950/90 p-6 mx-4 max-w-md w-full">
+        <div className="relative rounded-lg shadow bg-black p-6 mx-4 max-w-md w-full">
           {/* Close button */}
           <button
             type="button"
