@@ -16,13 +16,16 @@ export const Button = ({
   ...props
 }: ButtonProps) => {
   const baseClasses =
-    "inline-flex justify-center items-center font-medium text-center rounded-lg focus:ring-4 cursor-pointer";
+    "inline-flex justify-center items-center font-medium text-center rounded-full focus:ring-4 cursor-pointer";
 
   const variants = {
-    outline:
-      "text-white border border-gray-700 hover:bg-gray-700 focus:ring-gray-800",
+    outline: clsx(
+      "relative z-10 overflow-hidden text-white border border-outline",
+      "gradient-primary-hover hover:gradient-slide-in",
+      "hover:scale-105 transition-transform duration-300"
+    ),
     primary:
-      "bg-primary text-white hover:bg-primaryHover focus:ring-purple-900",
+      "bg-primary text-white hover:bg-primary-hover focus:ring-purple-900",
   };
 
   const sizes = {

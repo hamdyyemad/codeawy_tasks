@@ -1,26 +1,36 @@
 @layer utilities {
-    .bg-background {
-      background-color: #09090F;
-    }
-  
-    .bg-primary {
-      background-color: #811EFF;
-    }
-  
-    .hover\:bg-primary-hover:hover {
-      background-color: #6c1ad1;
-    }
-  
-    .border-outline {
-      border-color: #374151;
-    }
-  
-    .text-primary {
-      color: #811EFF;
-    }
-  
-    .text-outline {
-      color: #374151;
-    }
+  .bg-background {
+    background-color: #09090F;
   }
-  
+
+  .bg-primary {
+    background-color: #811EFF;
+  }
+
+  .hover\:bg-primary-hover:hover {
+    background-color: #6c1ad1;
+  }
+
+  .border-outline {
+    border-color: #374151;
+  }
+
+  .text-primary {
+    color: #811EFF;
+  }
+
+  .text-outline {
+    color: #374151;
+  }
+
+  /* ✅ Add these new gradient utilities */
+  .gradient-primary-hover::before {
+    content: "";
+    @apply absolute top-0 -left-full w-full h-full rounded-lg transition-all duration-500 ease-in-out z-[-1];
+    background-image: linear-gradient(to right, #811EFF, #6c1ad1);
+  }
+
+  .hover\:gradient-slide-in:hover::before {
+    left: 0;
+  }
+}

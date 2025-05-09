@@ -14,7 +14,7 @@ export default function Navbar() {
 
   return (
     <div
-      className={`bg-[#18181D] fixed z-50 w-full px-4 sm:px-8 py-4 transition-all duration-500 rounded-full mt-4 ${
+      className={`bg-[#18181D] fixed z-50 w-full px-4 sm:px-8 py-1 transition-all duration-500 rounded-full mt-4 ${
         isScrolled
           ? "bg-[#0F0F17]/95 backdrop-blur-lg border-b border-[#18181D]/50 max-w-4xl"
           : "max-w-2xl"
