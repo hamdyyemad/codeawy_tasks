@@ -21,8 +21,7 @@ export const Button = ({
   const variants = {
     outline: clsx(
       "relative z-10 overflow-hidden text-white border border-outline",
-      "gradient-primary-hover hover:gradient-slide-in",
-      "hover:scale-105 transition-transform duration-300"
+      "gradient-primary-hover hover:gradient-slide-in"
     ),
     primary:
       "bg-primary text-white hover:bg-primary-hover focus:ring-purple-900",

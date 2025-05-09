@@ -1,4 +1,13 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+:root {
+    --color-primary: #811EFF;
+    --color-primary-hover: #6c1ad1;
+    --color-outline: #374151;
+    --color-background: #09090F;
+    --color-primary-transparent: rgba(129, 30, 255, 0.5);
+  }
+
+  
 @import "./ui.css"; 

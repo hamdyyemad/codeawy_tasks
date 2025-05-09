@@ -31,15 +31,13 @@ export default function Navbar() {
         </nav>
 
         {/* Mobile menu button */}
-        <MenuToggle toggle={toggleMenu} atTop={atTop} isOpen={isOpen} />
+        <MenuToggle toggle={toggleMenu} isOpen={isOpen} />
       </div>
 
       {/* Mobile Navigation */}
       {isOpen && (
         <div
-          className={`md:hidden mt-4 transition-all duration-300 ${
-            isScrolled ? "bg-black bg-opacity-90" : "bg-white bg-opacity-90"
-          } rounded-lg p-4`}
+          className={`md:hidden mt-4 transition-all duration-300 bg-black bg-opacity-90 rounded-lg p-4`}
         >
           <div className="flex flex-col space-y-4">
             <NavLinks
