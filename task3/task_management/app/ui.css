@@ -1,0 +1,26 @@
+@layer utilities {
+    .bg-background {
+      background-color: #09090F;
+    }
+  
+    .bg-primary {
+      background-color: #811EFF;
+    }
+  
+    .hover\:bg-primary-hover:hover {
+      background-color: #6c1ad1;
+    }
+  
+    .border-outline {
+      border-color: #374151;
+    }
+  
+    .text-primary {
+      color: #811EFF;
+    }
+  
+    .text-outline {
+      color: #374151;
+    }
+  }
+  
