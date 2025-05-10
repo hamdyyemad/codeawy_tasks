@@ -1,5 +1,5 @@
 import { Button } from "@/ui/Button";
-import { navLinks, authLinks } from "@/app/constants/links";
+import { navLinks, authLinks } from "@/app/(landing)/constants/links";
 
 interface NavLinksProps {
   atTop: boolean;

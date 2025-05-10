@@ -1,4 +1,4 @@
-import footerLinks from "@/app/constants/footerLinks";
+import footerLinks from "@/app/(landing)/constants/footerLinks";
 export default function FooterLinks({range}: {range: string}) {
     const [start, end] = range.split(',').map(Number);
 

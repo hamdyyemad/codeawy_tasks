@@ -1,4 +1,4 @@
-import { FeatureItemProps } from "@/app/types/FeatureItemProps";
+import { FeatureItemProps } from "@/app/(landing)/types/FeatureItemProps";
 
 const FeatureItem: React.FC<FeatureItemProps> = ({
   title,
