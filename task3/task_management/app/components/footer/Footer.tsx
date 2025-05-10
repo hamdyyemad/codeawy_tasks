@@ -1,4 +1,4 @@
-import Logo from "../Navbar/Logo";
+import Logo from "../navbar/Logo";
 import FooterLinks from "./FooterLinks";
 import SocialMedia from "./SocialMedia";
 
@@ -10,11 +10,9 @@ export default function Footer() {
           <div className="xl:grid xl:grid-cols-3 xl:gap-8">
             <div className="space-y-4">
               <div>
-                <a href="/">
                   <div className="flex items-center space-x-2 text-2xl font-medium">
                     <Logo />
                   </div>
-                </a>
               </div>
               <div className="max-w-md pr-16 text-md text-gray-200">
                 Your Ultimate Task Management Solution for Enhanced Productivity and Efficiency
